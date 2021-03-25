@@ -15,9 +15,25 @@ namespace SnakeGameProject
         private readonly SnakeRepo snakeRepo = new SnakeRepo();
         int score = 0;
         int highScore = 0; //<- needs to pull from the High Score list and display on the game board #############################
+        int gameSpeed = 0;
         public void StartGame(GameOptions gameOptions)
         {
-            
+            switch (gameOptions.Difficulty)
+            {
+                case GameDifficulty.easy:
+                    gameSpeed = 600;
+                    break;
+                case GameDifficulty.medium:
+                    gameSpeed = 450;
+                    break;
+                case GameDifficulty.hard:
+                    gameSpeed = 300;
+                    break;
+                default:
+                    gameSpeed = 600;
+                    break;
+            }
+
             while (gameItems.Count < 3)
             {
                 gameItems.Add(AddGameItems(gameOptions));
@@ -79,7 +95,7 @@ namespace SnakeGameProject
                     snakeRepo.AddSnake(snakeRepo.CreateNewHead(snakeRepo.GetSnake(0)));
                 } 
 
-                Thread.Sleep(300); // <- Needs to be set with the difficulty paramater #################################
+                Thread.Sleep(gameSpeed); // <- Needs to be set with the difficulty paramater #################################
                 Console.Clear();
             }
             Console.WriteLine("You DEAD!"); // Needs to implement Rochelles menu and replace lines 86 & 87
@@ -87,6 +103,7 @@ namespace SnakeGameProject
             Console.WriteLine("Congratulations! You've achieved a high score. Please enter your name:");
             var UserNameInput = Console.ReadLine();
             string userScore = HighScore.ShowPlayerScore(UserNameInput, score);
+            Console.WriteLine("??");
             Console.WriteLine($"{userScore}");
             Console.ReadLine();
         }

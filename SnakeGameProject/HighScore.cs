@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SnakeGameProject
 {
-    public static class HighScore
+    public class HighScore
     {
         public static string Name { get; set; }
         public static int Score { get; set; }
@@ -17,39 +17,65 @@ namespace SnakeGameProject
 
         //}
 
-        //public HighScore(int score, string name)
-        //{
-        //    Name = name;
-        //    Score = score;
+        public HighScore(int score, string name)
+        {
+            Name = name;
+            Score = score;
 
-        //}
-        public static Dictionary<string, int> UserHighScores { get; set; }
+        }
+        public static Dictionary<string, int> UserHighScores { get; set; } = new Dictionary<string, int>();
+        
         //call this method upon player death
         // -----Beginning of test code!!-----
 
+        public static List<HighScore> GetListOfHighScores()
+        {
+            List<HighScore> highScoreList = new List<HighScore>();
+            foreach (Dictionary<string, int> score in UserHighScores)
+            {
 
+            }
+        }
         public static int nameCount { get; set; }
         public static string ShowPlayerScore(string name, int score)
         {
+            
             string user = "";
-            foreach (var playerName in UserHighScores.Keys)
+            foreach (var playerName in UserHighScores)
             {
-                if (playerName != name)
+                if (playerName.Key == null)
                 {
                     nameCount++;
                     UserHighScores.Add(name, score);
-                    return user = $"{name} {score}";
+                    return user += $"{name} {score}";
+                }
+               else if (playerName.Key != name)
+                {
+                    nameCount++;
+                    UserHighScores.Add(name, score);
+                    return user += $"{name} {score}";
                 }
                 else
                 {
                     nameCount++;
                     UserHighScores.Add(name + $"{nameCount}", score);
-                    return user = $"{name} {score}";
+                    return user += $"{name} {score}";
                 }
             }
             return user;
         }
 
+        public static void SeedScores()
+        {
+            UserHighScores.Add("AAA", 10);
+            UserHighScores.Add("BBB", 10);
+            UserHighScores.Add("CCC", 10);
+            UserHighScores.Add("DDD", 10);
+            UserHighScores.Add("EEE", 10);
+
+
+        }
+       
 
         //public static void ShowPlayerResults(Dictionary<string, int> highScoreResults)
         //{

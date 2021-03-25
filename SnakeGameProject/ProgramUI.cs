@@ -9,18 +9,20 @@ namespace SnakeGameProject
     public class ProgramUI
     {
         GameBoard currentGame = new GameBoard();
+       
         public GameOptions currentOptions = new GameOptions(GameBoardSize.small, GameDifficulty.easy);
         string userName="";
         string userHighScore = "";
+        
         public void RunApplication()
         {
             bool isRunning = true;
-
+            HighScore.SeedScores();
             while (isRunning)
             {
                 Console.WriteLine("Welcome to the Insatiably Hungry Snake Game! \n" +
                     $"1. Play on board size {currentOptions.BoardSize} at difficulty level {currentOptions.Difficulty}. \n" +
-                    "2. Choose Board Size \n " +
+                    "2. Choose Board Size \n" +
                     "3. Set Game Difficulty \n" +
                     "4. Show High Scores \n" +
                     "5. Rules \n" +
